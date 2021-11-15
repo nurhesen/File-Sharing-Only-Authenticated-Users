@@ -18,7 +18,7 @@ Features:
   
   ````````````
   
-  git clone https://github.com/nurhesen/File-Sharing-Only-Authorized-Users.git
+  git clone https://github.com/nurhesen/File-Sharing-Only-Authenticated-Users.git
   cd newsboard-docker
   docker-compose build
   docker-compose up
