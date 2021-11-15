@@ -1,0 +1,250 @@
+{% extends "taskapp/base.html" %}
+{%block content%}
+
+
+
+
+
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <style>
+      html, body {
+      min-height: 100%;
+      }
+      body, div, form, input, select, textarea, p { 
+      padding: 0;
+      margin: 0;
+      outline: none;
+      font-family: Roboto, Arial, sans-serif;
+      font-size: 14px;
+      color: #666;
+      line-height: 22px;
+      }
+      h1 {
+      position: relative;
+      margin: 0;
+      font-size: 32px;
+      color: #fff;
+      z-index: 2;
+      }
+      .testbox {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: inherit;
+      padding: 20px;
+      }
+      form {
+      width: 100%;
+      padding: 20px;
+      border-radius: 6px;
+      background: #fff;
+      box-shadow: 0 0 30px 0 #8ebf42; 
+      }
+      .banner {
+      position: relative;
+      height: 210px;
+      background-image: url("/uploads/media/default/0001/01/a3df023f124a8bec3b213347404fe0a7318161de.jpeg");  
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      }
+      .banner::after {
+      content: "";
+      background-color: rgba(0, 0, 0, 0.5); 
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      }
+      p.top-info {
+      margin: 10px 0;
+      }
+      input, select, textarea {
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      }
+      input {
+      width: calc(100% - 10px);
+      padding: 5px;
+      }
+      select {
+      width: 100%;
+      padding: 7px 0;
+      background: transparent;
+      }
+      textarea {
+      width: calc(100% - 12px);
+      padding: 5px;
+      }
+      .item:hover p, .item:hover i, .question:hover p, .question label:hover, input:hover::placeholder {
+      color: #8ebf42;
+      }
+      .item input:hover, .item select:hover, .item textarea:hover {
+      border: 1px solid transparent;
+      box-shadow: 0 0 8px 0 #8ebf42;
+      color: #8ebf42;
+      }
+      .item {
+      position: relative;
+      margin: 10px 0;
+      }
+      input[type="date"]::-webkit-inner-spin-button {
+      display: none;
+      }
+      .item i, input[type="date"]::-webkit-calendar-picker-indicator {
+      position: absolute;
+      font-size: 20px;
+      color: #a9a9a9;
+      }
+      .item i {
+      right: 2%;
+      top: 30px;
+      z-index: 1;
+      }
+      [type="date"]::-webkit-calendar-picker-indicator {
+      right: 1%;
+      z-index: 2;
+      opacity: 0;
+      cursor: pointer;
+      }
+      input[type=radio] {
+      width: 0;
+      visibility: hidden;
+      }
+      label.radio {
+      position: relative;
+      display: inline-block;
+      margin: 5px 20px 25px 0;
+      cursor: pointer;
+      }
+      .question span {
+      margin-left: 30px;
+      }
+      label.radio:before {
+      content: "";
+      position: absolute;
+      left: 0;
+      width: 17px;
+      height: 17px;
+      border-radius: 50%;
+      border: 2px solid #8ebf42;
+      }
+      label.radio:after {
+      content: "";
+      position: absolute;
+      width: 8px;
+      height: 4px;
+      top: 6px;
+      left: 5px;
+      background: transparent;
+      border: 3px solid #8ebf42;
+      border-top: none;
+      border-right: none;
+      transform: rotate(-45deg);
+      opacity: 0;
+      }
+      input[type=radio]:checked + label:after {
+      opacity: 1;
+      }
+      .btn-block {
+      margin-top: 10px;
+      text-align: center;
+      }
+      button {
+      width: 150px;
+      padding: 10px;
+      border: none;
+      border-radius: 5px; 
+      background: #8ebf42;
+      font-size: 16px;
+      color: #fff;
+      cursor: pointer;
+      }
+      button:hover {
+      background: #82b534;
+      }
+      @media (min-width: 568px) {
+      .name-item, .city-item {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      }
+      .name-item input, .city-item input {
+      width: calc(50% - 20px);
+      }
+      .city-item select {
+      width: calc(50% - 8px);
+      }
+      }
+      h4{
+            margin: 0 8px;
+            cursor:pointer
+      }
+      svg{
+        cursor: pointer;
+      }
+      .file{
+        z-index: 5;
+      }
+      a{
+        text-decoration: none;
+      }
+      .bannin {
+    display: flex;
+    width: 90%;
+    margin: auto;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+    </style>
+    <div class="testbox">
+
+
+    <form action="{% url 'taskapp:home' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+<div class="banner">
+<div class="bannin">
+  <h1>Fayl Paylaşma Applikasiyası</h1>
+
+  {% for each in Fayls %}
+  
+  <a class="file" href="{% url 'taskapp:detail' each.id %}">
+    <div>
+      <h4>{{each}}</h4>
+  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="50px" width="50px" fill="#000000" version="1.1" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve"><path d="M62.448,5H15v90h69.231V26.783L62.448,5z M63.462,10.909l14.86,14.86h-14.86V10.909z M18.462,91.538V8.462H60v20.769h20.769  v62.308H18.462z"></path><rect x="28.846" y="50" width="41.538" height="1.731"></rect><rect x="28.846" y="77.692" width="41.538" height="1.731"></rect><rect x="28.846" y="56.923" width="13.846" height="1.731"></rect><rect x="28.846" y="43.077" width="41.538" height="1.731"></rect><rect x="28.846" y="36.154" width="41.538" height="1.731"></rect><rect x="28.846" y="29.231" width="24.231" height="1.731"></rect><rect x="28.846" y="63.846" width="13.846" height="1.731"></rect><rect x="49.616" y="60.385" width="1.731" height="8.654"></rect><rect x="66.923" y="60.385" width="1.731" height="8.654"></rect><rect x="28.846" y="70.769" width="13.846" height="1.731"></rect><path d="M47.885,56.923v5.192h5.192v-5.192H47.885z M51.346,60.385h-1.731v-1.731h1.731V60.385z"></path><path d="M47.885,67.308V72.5h5.192v-5.192H47.885z M51.346,70.769h-1.731v-1.731h1.731V70.769z"></path><path d="M65.192,67.308V72.5h5.192v-5.192H65.192z M68.654,70.769h-1.731v-1.731h1.731V70.769z"></path><path d="M65.192,56.923v5.192h5.192v-5.192H65.192z M68.654,60.385h-1.731v-1.731h1.731V60.385z"></path><rect x="51.346" y="58.654" width="15.577" height="1.731"></rect><rect x="51.346" y="69.038" width="15.577" height="1.731"></rect></svg></div>
+  
+  
+  
+  
+  </a>
+  {% endfor %}
+
+</div>
+
+        </div>
+        
+        <p>{{ form.non_field_errors }}</p>
+        <p>{{ form.label_tag }} {{ form.help_text }}</p>
+        <p>
+            {{ form.errors }}
+            {{ form }}
+        </p>
+         <div class="btn-block">
+          <button type="submit" >Paylas</button>
+        </div>
+    </form>
+
+
+
+
+    </div>
+
+
+
+{%endblock%}
+

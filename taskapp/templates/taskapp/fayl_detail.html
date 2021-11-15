@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a href="{% url 'taskapp:home' %}">Home</a>
+{% if object %}
+{% include 'taskapp/detail_style.html' %}
+
+
+
+
+
+<div id="page-wrapper">
+
+
+
+
+    
+      <div class="parallax">
+          <section id="hero">
+          <h2>
+           Faylın adı: {{object.ad}}
+          </h2>
+          <div id="aciqlama" class="parts">Müəllif: {{object.muellif}}</div>
+              <div class="parts"><a id="download"  href="/{{object.fayl}}">Faylı Yüklə</a></div>
+              <div id="aciqlama" class="parts">Açıqlama: {{object.aciqlama}}</div>
+
+      </section>
+      </div>
+      
+      
+  </div>
+
+
+
+    <div>
+<br>
+<br>
+<hr>
+{% if muellifdir %}
+
+
+<form style="display: flex; width: fit-content; margin: auto;" action="{% url 'taskapp:paylas' %}" method="post">
+    {% csrf_token %}
+    <label for="kimle">İstifadəçi seç:</label>
+<select name="kimle" id="">
+{% for usr in userler %}
+    <option value="{{usr.id}}">{{usr.username}}</option>
+{% endfor %}
+</select>
+<input type="hidden" name="fayl" value={{object.id}}>
+<p><label for="id_serh_yaza_biler">Bu şəxs şərh yaza bilər:</label> <input type="checkbox" name="serh_yaza_biler" id="id_serh_yaza_biler"></p>
+<input type="submit" value="Bu Şəxslə Paylaş">
+</form>
+
+{%endif%}
+
+<hr>
+    {% include "taskapp/style_komment.html" %}
+
+    <div class="comments-container">
+        <h1>Kommentlər </h1>
+    
+        <ul id="comments-list" class="comments-list">
+
+            {% if yaza_biler %}
+
+
+
+<li>            <form action="{% url 'taskapp:create'%}" method="post">
+    {%csrf_token%}
+    <input type="hidden" name="fayl" value="{{object.id}}">
+    <div>
+    <textarea  name="komment" id="comments" style="font-family:sans-serif;font-size:1.2em; width:100%;" placeholder="Komment Yaz..."></textarea>
+    </div>
+    <input type="submit" value="Kommenti Paylaş">
+    </form></li>
+            
+            {%else%}
+            Yalniz oxumaq mumkundur
+                {%endif%}
+
+
+{%for serh in object.serhler.all%}
+
+
+
+
+
+
+
+
+
+
+
+        <li>
+            <div class="comment-main-level">
+
+                <div class="comment-avatar"><img src="http://i9.photobucket.com/albums/a88/creaticode/avatar_1_zps8e1c80cd.jpg" alt=""></div>
+  
+                <div class="comment-box">
+                    <div class="comment-head">
+                        <h6 class="comment-name">{{serh.user}}</h6>
+                        
+                        <i class="fa fa-reply"></i>
+                        <i class="fa fa-heart"></i>
+                    </div>
+                    <div class="comment-content">
+                        {{serh.komment}}
+                    </div>
+                </div>
+            </div>
+
+        </li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endfor %}
+</ul>
+</div>
+
+    </div>
+
+
+
+{%else%}
+Fayl yoxdur ve ya muellif bu fayli sizinle paylasmayib
+
+{%endif%}
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
+
+
+
+
+
+
+
