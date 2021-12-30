@@ -19,7 +19,7 @@ Features:
   ````````````
   
   git clone https://github.com/nurhesen/File-Sharing-Only-Authenticated-Users.git
-  cd newsboard-docker
+  cd File-Sharing-Only-Authenticated-Users
   docker-compose build
   docker-compose up
   
